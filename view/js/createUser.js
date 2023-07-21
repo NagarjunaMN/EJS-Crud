@@ -1,41 +1,43 @@
-let fName = document.getElementById('name')
-let femail = document.getElementById('email')
-let fmobile = document.getElementById('mobile')
-let fage = document.getElementById('age')
-let faddr = document.getElementById('address')
 
-//Not support addevent listener
-// userform.addeventlistener('submit',function(event){
-//     event.preventDefault();
+let fName = document.getElementById('name');
+let fEmail = document.getElementById('email');
+let fMobile = document.getElementById('mobile');
+let fAge = document.getElementById('age');
+let fAddr = document.getElementById('address');
+
+// not support addevent listener
+// userForm.addEventListener('submit', function(event){
+//     event.preventDefault(); // to avoid page refresh
 //     const data = {
-//         name : fName.ariaValueMax,
-//         email : femail.ariaValueMax,
-//         mobile : fmobile.ariaValueMax,
-//         age : fage.ariaValueMax,
+//         name: fName.value,
+//         email: fEmail.value,
+//         mobile: fMobile.value,
+//         age: fAge.value
 //     }
-//     console.log(`user data submitted`,data)
+//     console.log(`user data submitted`, data);
+// });
 
-// })
 
 const submitHandler = async (event) => {
-    event.preventDefault() 
+    event.preventDefault(); // to avoid page refresh
     const data = {
-        name : fName.value,
-        email : femail.value,
-        mobile : fmobile.value,
-        age : fage.value,
-        address : faddr.value,
+        name: fName.value,
+        email: fEmail.value,
+        mobile: fMobile.value,
+        age: fAge.value,
+        address: fAddr.value
     }
-    console.log(`user data submitted`,data)
-    await fetch(`http://localhost:3000/api/user/new`,{
-        method:"POST",
-        headers : {
-            "Content-Type" : "application/json"
+    console.log(`user data submitted`, data);
+    // sending the data to the api - post request 
+    await fetch(`http://localhost:4500/api/user/new`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
         },
         body: JSON.stringify(data)
     }).then(out => out.json())
-    .then(res => {
-        console.log('server response = ',res)
-        alert(res.msg)
-    }).catch(err => console.log(err.message))
+      .then(res => {
+            console.log('server response =', res)
+            window.alert(res.msg)
+      }).catch(err => console.log(err.message))
 }
